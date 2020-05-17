@@ -108,13 +108,9 @@ void MultiplyPolyn( polynomial &Pa, polynomial &Pb);
 
 // 使用系数和指数数组初始化多项式
 void InitPolyn(polynomial &P, const float * coef, const int * expn, int n){
-    auto tem = (LNode*) malloc(sizeof(LNode));
-    tem->next = nullptr;   // 刚初始化时，head未分配空间， head->next 无定义  访问时会产生  退出代码11
-    P.head = tem;      //  故先创建tem,然后让 head指向它,这样确保能访问 head->next
-//    P.head = (LNode*) malloc(sizeof(LNode));
-    free(tem);
-    tem =NULL;
-//    P.head->next = nullptr;
+    // 刚初始化时，head未分配空间， head->next 无定义  访问时会产生  退出代码11
+    P.head = (LNode*) malloc(sizeof(LNode));
+    P.head->next = nullptr;
     P.len=0;
     Link s;
     for (int i =n-1; i>=0; i--){     // 头插法
