@@ -39,11 +39,10 @@ using namespace  std;
 typedef short Status;
 namespace Common{
     typedef int ElemType;
+    typedef int SElemType;
 
 }
 
-namespace Polynomial{
 
-}
 
 #endif //C_COMMON_H

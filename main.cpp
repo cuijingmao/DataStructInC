@@ -2,39 +2,26 @@
 #include <ctime>
 using namespace  std;
 
-#include "Applications/Polynomial/Polynomial.h"
-
-
+#include "Stack/SqStack.h"
+#include "Applications/NumeratiionConvert/conversion.h"
+# include "Applications/LineEdit/LineEdit.h"
+# include "Applications/Maze/MazePath.h"
 
 
 int main() {
-//    freopen("input.txt","r",stdin);
+//    freopen("./input.txt","r",stdin);
 //    freopen("./output.txt", "w",stdout);
 
-    cout<<YELLOW<<"初始化多项式："<<endl;
-    cout<<WHITE;
-    polynomial Polyn;
-    float coef[] {1,2,4,5};
-    int expn[] {2,3,4,5};
-    InitPolyn(Polyn, coef,expn,4);
-    PrintPolyn(Polyn);
-
-    float coef1[] {1,-2.0, 3.0,5};
-    int   expn1[] {2,3,4,8};
-    polynomial Polyn1;
-    InitPolyn(Polyn1, coef1,expn1,4);
-    PrintPolyn(Polyn1);
-
-    cout<<YELLOW<<"两多项式求和："<<endl;
-    cout<<WHITE;
-    AddPolyn(Polyn,Polyn1);
-    PrintPolyn(Polyn);
+    int sto[M][N];
+    struct  mark  start, end;   // start, end 为入口和出口的坐标
+    GetMazeFromFile(sto);   //建立迷宫
+    start.x = 1;
+    start.y =1;
+    end.x = 8;
+    end.y = 8;
+    MazePath(start,end,sto);  //  寻找路径
 
 
-
-
-//    AddPolyn(Polyn, Polyn2);
-//    PrintPolyn(Polyn);
 
 
     //程序运行计时

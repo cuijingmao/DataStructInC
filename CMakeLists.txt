@@ -8,6 +8,8 @@ file(GLOB SOURCES
         List/*.h
         Applications/*/*.cpp
         Applications/*/*.h
+        Stack/*.cpp
+        Stack/*.h
         )
 
 add_executable(C main.cpp  ${SOURCES})

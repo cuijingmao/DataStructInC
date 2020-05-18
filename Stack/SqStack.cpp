@@ -82,6 +82,7 @@ Status InitStackWisthArr(SqStack &S ,const ElemType *arr, int n){
         S.top ++;
     }
     S.stacksize = n+5;
+    return OK;
 }
 
 //  打印栈内容
