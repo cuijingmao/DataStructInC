@@ -2,7 +2,7 @@
 // Created by Carey on 2020/5/19.
 //
 
-#include "BFMatch.h"
+#include "BFmatch.h"
 
 // 返回子串T中第 pos个字符之后的位置， 若不存在， 则函数值 为0
 // 其中，T非空， 1<= pos <= StrLength(S)
