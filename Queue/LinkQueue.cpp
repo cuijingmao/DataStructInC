@@ -20,6 +20,7 @@ Status DestroyQueue(LinkQueue &Q){
         free(Q.front);
         Q.front = Q.rear;
     }
+    return OK;
 }
 
 // 将Q清为空队列

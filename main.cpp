@@ -6,20 +6,34 @@ using namespace  std;
 #include "Applications/NumeratiionConvert/conversion.h"
 # include "Applications/LineEdit/LineEdit.h"
 # include "Applications/Maze/MazePath.h"
-
+#include "string/SString.h"
 
 int main() {
 //    freopen("./input.txt","r",stdin);
 //    freopen("./output.txt", "w",stdout);
 
-    int sto[M][N];
-    struct  mark  start, end;   // start, end 为入口和出口的坐标
-    GetMazeFromFile(sto);   //建立迷宫
-    start.x = 1;
-    start.y =1;
-    end.x = 8;
-    end.y = 8;
-    MazePath(start,end,sto);  //  寻找路径
+
+    cout<<"定长顺序存储串的表示  "<<endl;
+    SString S;
+    S[0] = 2;
+    S[1] = 'C';
+    S[2] = 'H';
+    cout<<"S 的内容： "<<S<<endl;
+
+    cout<<"请输入S2的内容:  ";
+    SString S2;
+    cin>>S2;
+    cout<<"S2 的内容： "<<S2<<endl;
+
+    SString T;
+    Concat(T,S,S2);
+    cout<<"S 和 S2拼接后为："<<T<<"  长度为：" <<(int)T[0] <<endl;
+
+    SString S3, S4;
+    char a[30] = "I love you";
+    InitSString(S3,a);
+    SubString(S4, S3, 3, 4);
+    cout<<"字符串："<<S3<<" 的一个子串为： "<<S4<<endl;
 
 
 

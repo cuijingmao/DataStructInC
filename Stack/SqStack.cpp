@@ -22,6 +22,7 @@ Status DestroyStack(SqStack &S){
         S.stacksize = 0;
         return OK;
     }
+    return FALSE;
 }
 
 // 把S置为空栈
