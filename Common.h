@@ -35,6 +35,7 @@ using namespace  std;
 #define ERROR 0
 #define INFEASIBLE -1
 #define OVERFLOW -2
+#define UNDERFLOW -3
 
 typedef short Status;
 namespace Common{

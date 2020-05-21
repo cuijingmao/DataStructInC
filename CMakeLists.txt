@@ -12,8 +12,10 @@ file(GLOB SOURCES
         Stack/*.h
         Queue/*.cpp
         Queue/*.h
-        string/*.cpp
-        string/*.h
+        String/*.cpp
+        String/*.h
+        Array/*.cpp
+        Array/*.h
         )
 
 add_executable(C main.cpp  ${SOURCES})
