@@ -29,6 +29,43 @@ Status TransposeSMatrix(TSMatrix M, TSMatrix &T){
 }
 
 
+// 采用三元组表存储表示, 求稀疏矩阵M的转置矩阵T(快速方法）
+Status FastTransposeSMatrix(TSMatrix M, TSMatrix &T)
+{
+    T.mu = M.nu;
+    T.nu = M.mu;
+    T.tu = M.tu;
+    int num[M.nu];
+    if(T.tu)
+    {
+        for(int col =1; col <= M.nu; ++col)  num[col] =0;
+        for(int t =1; t <= M.tu; ++t) ++num[M.data[t].j];     // 求M中每一列含非零元的个数
+        int cpot[M.nu];
+        cpot[1] = 1;
+        // 求 M 第col列中第一个非零元在 T中的序号
+        for( int col =2; col <= M.nu; col++)
+        {
+            cpot[col] = cpot[col-1] + num[col-1];
+        }
+        for( int p =1; p <= M.tu; ++p)
+        {
+            int col = M.data[p].j;
+            int q = cpot[col];
+            T.data[q].i = M.data[p].j;
+            T.data[q].j = M.data[p].i;
+            T.data[q].e = M.data[p].e;
+            ++cpot[col];
+        }//for
+    }//if
+    return OK;
+}
+
+
+
+// *******************************************************************
+//  以下为在 教材 基础上补充的辅助性函数  使其实用化
+// *******************************************************************
+
 
 // 使用 n *3  数组创建 TSMatrix
 Status CreateTSMatrix(TSMatrix &M, ElemType  A[][3], int n)
