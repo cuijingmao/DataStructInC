@@ -23,12 +23,15 @@ void get_nextval(SString T, int nextval[]);
 
 #endif //C_KMPMATCH_H
 
+//    cout<<YELLOW<<"KMP算法进行字符串的子串模式匹配："<<endl;
+//    cout<<WHITE;
 //    SString S,S1;
 //    char a[30] = "acabaabaabcacaabc";
 //    char b[5] = "abc";
 //    InitSString(S,a);
+//    cout<<"主串："<<S<<endl;
 //    InitSString(S1,b);
+//    cout<<"模式串："<<S1<<endl;
 //
 //    int ind = Index_KMP(S,S1, 1);
-//    cout<<"字符串: "<<S<<" 中，子串: "<<S1<<" 的第一个位置为： "<<ind<<endl;
-//
+//    cout<<"主串中模式串的第一个位置是: "<<ind<<endl;

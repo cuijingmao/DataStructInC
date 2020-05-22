@@ -35,9 +35,9 @@ void LineEdit(){
 
 //  打印栈内容
 void PrintStackInChar(SqStack S){
-    ElemType arr[S.top - S.base];
+    SElemType arr[S.top - S.base];
     int i =0;
-    ElemType *tem = S.top;
+    SElemType *tem = S.top;
     while(tem != S.base){
         tem --;
         arr[i++] = *tem;

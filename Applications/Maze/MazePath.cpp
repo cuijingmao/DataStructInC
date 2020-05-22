@@ -45,9 +45,11 @@ int Pop(PLStack &S,Element &e)
 }
 
 //  求迷宫路径函数
-void MazePath(struct mark start, struct mark end, int  maze[M][N])
+void MazePath(int maze[MAZE_M][MAZE_N],struct mark start ,
+              struct mark end , int arr[(MAZE_M-2) * (MAZE_N -2)][2] )
 {
     int i,j,d; int a,b;
+    int maze_true_path_len =0;
     Element elem, e;
     PLStack S1,S2;
     InitStack(S1);   // 使用两个栈， 两次逆序即保持路径输出为正序
@@ -89,8 +91,14 @@ void MazePath(struct mark start, struct mark end, int  maze[M][N])
                 }
                 while (S2) {
                     Pop(S2, e);
+                    arr[maze_true_path_len][0] = e.x;
+                    arr[maze_true_path_len][1] = e.y;
+                    maze_true_path[maze_true_path_len][0] = e.x;
+                    maze_true_path[maze_true_path_len][1] = e.y;
+                    maze_true_path_len ++;
                     printf("--->(%d,%d，%d)", e.x, e.y, e.d);
                 }
+                cout<<endl;
                 return;    // 跳出两层循环
             }
             if(maze[a][b] == 0) //找到可以前进的非出口的点
@@ -112,64 +120,64 @@ void MazePath(struct mark start, struct mark end, int  maze[M][N])
 }
 
 
-//  建立迷宫
-//void initmaze(int maze[M][N])
-//{
-//    int i,j;
-//    int m,n ;
-//    printf("请输入迷宫的行数 m=");
-//    scanf("%d",&m);
-//    printf("请输入迷宫的列数 n=" );
-//    scanf("%d", &n);
-//    printf("\n请输入迷宫的各行各列：\n用空格隔开，0代表路，1代表墙\n",m,n);
-//    for(i =1; i<=m; i++)
-//    {
-//        for(j =1; j<=n; j++)
-//        {
-//            scanf("%d", &maze[i][j]);
-//        }
-//    }
-//    printf("你建立的迷宫为(最外圈为墙)...\n");
-//    for(i = 0; i<= m+1; i++)   //加一圈围墙
-//    {
-//        maze[i][0] =1;         // 西墙
-//        maze[i][n+1] =1;       // 东墙
-//    }
-//    for(j = 0; j<=n+1; j++)   //加一圈围墙
-//    {
-//        maze[0][j] =1;         // 南墙
-//        maze[m+1][j] =1;       // 北墙
-//    }
-//
-//    for( i =0; j <= m+1; i++)
-//    {
-//        for( j =0; j<n+1; j++)
-//        {
-//            printf("%d", maze[i][j]);
-//        }
-//        printf("\n");
-//    }
-//}
+//  通过标准输入(键盘) 建立迷宫  （不推荐）
+void initmaze(int maze[MAZE_M][MAZE_N])
+{
+    int i,j;
+    int m,n ;
+    printf("请输入迷宫的行数 m=");
+    scanf("%d",&m);
+    printf("请输入迷宫的列数 n=" );
+    scanf("%d", &n);
+    printf("\n请输入迷宫的各行各列：\n用空格隔开，0代表路，1代表墙\n",m,n);
+    for(i =1; i<=m; i++)
+    {
+        for(j =1; j<=n; j++)
+        {
+            scanf("%d", &maze[i][j]);
+        }
+    }
+    printf("你建立的迷宫为(最外圈为墙)...\n");
+    for(i = 0; i<= m+1; i++)   //加一圈围墙
+    {
+        maze[i][0] =1;         // 西墙
+        maze[i][n+1] =1;       // 东墙
+    }
+    for(j = 0; j<=n+1; j++)   //加一圈围墙
+    {
+        maze[0][j] =1;         // 南墙
+        maze[m+1][j] =1;       // 北墙
+    }
+
+    for( i =0; j <= m+1; i++)
+    {
+        for( j =0; j<n+1; j++)
+        {
+            printf("%d", maze[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 //  从文件中读取迷宫矩阵
-void  GetMazeFromFile(int maze[M][N])
+void  GetMazeFromFile(int maze[MAZE_M][MAZE_N])
 {
     ifstream infile;
     infile.open("input.txt");
-    for(int i = 0; i<M; i++)   //加一圈围墙
+    for(int i = 0; i<MAZE_M; i++)   //加一圈围墙
     {
         maze[i][0] =1;         // 西墙
-        maze[i][N-1] =1;       // 东墙
+        maze[i][MAZE_N-1] =1;       // 东墙
     }
-    for(int j = 0; j<N; j++)   //加一圈围墙
+    for(int j = 0; j<MAZE_N; j++)   //加一圈围墙
     {
         maze[0][j] =1;         // 南墙
-        maze[M-1][j] =1;       // 北墙
+        maze[MAZE_M-1][j] =1;       // 北墙
     }
 
-    for(int i = 1; i<M-1; i++)
+    for(int i = 1; i<MAZE_M-1; i++)
     {
-        for(int j =1; j < N -1; j++)
+        for(int j =1; j < MAZE_N -1; j++)
         {
 
             infile>>maze[i][j];
@@ -178,13 +186,13 @@ void  GetMazeFromFile(int maze[M][N])
 
     cout<<YELLOW<<"读取迷宫矩阵(0-路，1-墙)："<<endl;
     cout<<WHITE;
-    for(int i =0; i<M; i++)
+    for(int i =0; i<MAZE_M; i++)
     {
 
-        for(int j =0; j<N; j++)
+        for(int j =0; j<MAZE_N; j++)
         {
 
-           if(j > 0 && j<N-1 && i>0 && i< M-1){    //迷宫主体 变色突出显示
+           if(j > 0 && j<MAZE_N-1 && i>0 && i< MAZE_M-1){    //迷宫主体 变色突出显示
                cout<<BOLDMAGENTA<<maze[i][j]<<" ";
                cout<<WHITE;
            }
@@ -192,11 +200,48 @@ void  GetMazeFromFile(int maze[M][N])
                cout<<maze[i][j]<<" ";
            }
 
-            if(j ==N-1){
+            if(j ==MAZE_N-1){
                 cout<<"\n";
             }
 
         }
     }
 
+}
+
+
+// 打印迷宫路径
+void  PrintMazePath(int maze[MAZE_M][MAZE_N],  int arr[][2] )
+{
+    for(int i =0; i<MAZE_M; i++)
+    {
+
+        for(int j =0; j<MAZE_N; j++)
+        {
+            bool beInTruePath = FALSE;
+            for(int k = 0; k < (MAZE_M -2) * (MAZE_N -2); k ++)
+            {
+                if( i == arr[k][0] && j == arr[k][1] && i>0 && j>0)
+                {
+                    beInTruePath = TRUE;
+                }
+            }
+            if(beInTruePath){
+                cout<<BOLDYELLOW<<maze[i][j]<<" ";
+                cout<<WHITE;
+            }
+            else if(j > 0 && j<MAZE_N-1 && i>0 && i< MAZE_M-1){    //迷宫主体 变色突出显示
+                cout<<BOLDMAGENTA<<maze[i][j]<<" ";
+                cout<<WHITE;
+            }
+            else{
+                cout<<maze[i][j]<<" ";
+            }
+
+            if(j ==MAZE_N-1){
+                cout<<"\n";
+            }
+
+        }
+    }
 }

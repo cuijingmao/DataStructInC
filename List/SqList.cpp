@@ -71,7 +71,7 @@ int LocateElem_Sq(SqList L, ElemType e, Status (*myCompare)(ElemType,ElemType)){
     int i=1;
     auto p =L.elem;
     while( i<= L.length && !(*myCompare) (*p++, e)) ++i;
-    if(i<=L.length) return 1;
+    if(i<=L.length) return i;
     else return 0;
 }
 

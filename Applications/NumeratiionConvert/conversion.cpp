@@ -13,7 +13,7 @@ void conversion(){
         N = N/8;
     }
     while( !StackEmpty(S)){
-        ElemType e;
+        SElemType e;
         Pop(S,e);
         printf("%d",e);
     }

@@ -1,9 +1,15 @@
 //
-// Created by Carey on 2020/5/11.
-//
+// Created by Carey on 2020/5/21.
+// 行逻辑联接的顺序表 表示的稀疏矩阵
 
-#ifndef C_COMMON_H
-#define C_COMMON_H
+#ifndef C_RLSMATRIX_H
+#define C_RLSMATRIX_H
+
+// *************************************************************
+// 以下是 辅助性的代码 非重点
+// *************************************************************
+#ifndef  MY_COMMON_BLOCK
+#define  MY_COMMON_BLOCK
 
 #include <cstdlib>
 #include <cstdio>
@@ -38,12 +44,32 @@ using namespace  std;
 #define UNDERFLOW -3
 
 typedef short Status;
-namespace Common{
-    typedef int ElemType;
-    typedef int SElemType;
+#endif //MY_COMMON_BLOCK
+// *************************************************************
+// 以上是 辅助性的代码 非重点
+// *************************************************************
 
-}
+typedef int ElemType;
+
+#define MAXSIZE 12500     // 假设非零元的最大个数为12500
+#define MAXRC 100
+
+
+typedef struct{
+    int i,j;
+    ElemType e;
+} Triple;
+
+typedef struct {
+    Triple  data[MAXSIZE+1];   //非零元三元组表
+    int rpos[MAXRC+1];
+    int mu, nu,tu;      // 矩阵的行数、列数、非零元个数
+}RLSMatrix;
+
+
+// 求矩阵乘积 Q = M*N ， 采用行逻辑联接存储 表示
+Status MultiSMatrix(RLSMatrix M, RLSMatrix N, RLSMatrix &Q);
 
 
 
-#endif //C_COMMON_H
+#endif //C_RLSMATRIX_H

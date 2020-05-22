@@ -11,16 +11,17 @@
 // 其中，T非空， 1<= pos <= StrLength(S)
 int Index(SString S, SString T, int pos);
 
-
-
 #endif //C_BFMATCH_H
 
 
+//    cout<<YELLOW<<"暴力算法进行字符串的子串模式匹配(BF算法)："<<endl;
+//    cout<<WHITE;
 //    SString S,S1;
 //    char a[20] = "ababcabcacbab";
 //    char b[5]  = "abc";
 //    InitSString(S,a);
+//    cout<<"主串："<<S<<endl;
 //    InitSString(S1,b);
+//    cout<<"模式串："<<S1<<endl;
 //    int ind = Index(S,S1, 1);
-//    cout<<"在字符串："<<S<<" 中, 子串 "<<S1
-//        <<" 的第一个位置是: "<<ind<<endl;
+//    cout<<"主串中模式串的第一个位置是: "<<ind<<endl;

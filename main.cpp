@@ -2,21 +2,11 @@
 #include <ctime>
 using namespace  std;
 
-#include "Array/TSMatrix.h"
+#include "Applications/Maze/MazePath.h"
 
-void hh()
-{
-
-    int a[10] ={0};
-    cout<<a[0]<< " "<<a[1];
-    cout<<sizeof(a)<<endl;
-
-}
 int main() {
 //    freopen("./input.txt","r",stdin);
 //    freopen("./output.txt", "w",stdout);
-
-
 
 
 

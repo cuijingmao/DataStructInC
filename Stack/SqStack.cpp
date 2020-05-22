@@ -73,7 +73,7 @@ Status Pop(SqStack &S, SElemType &e){
 Status SqStackTraverse(SqStack S,Status(*visit)());
 
 // 使用数组初始化栈
-Status InitStackWisthArr(SqStack &S ,const ElemType *arr, int n){
+Status InitStackWisthArr(SqStack &S ,const SElemType *arr, int n){
     if(n<1) exit(ERROR);
     S.base = (SElemType*) malloc(sizeof(SElemType) *(n+5)); //多分配5个空间
     S.top = S.base;
@@ -88,9 +88,9 @@ Status InitStackWisthArr(SqStack &S ,const ElemType *arr, int n){
 
 //  打印栈内容
 void PrintStack(SqStack S){
-     ElemType arr[S.top - S.base];
+    SElemType arr[S.top - S.base];
      int i =0;
-     ElemType *tem = S.top;
+     SElemType *tem = S.top;
      while(tem != S.base){
          tem --;
          arr[i++] = *tem;
