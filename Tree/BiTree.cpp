@@ -107,7 +107,24 @@ Status  PostOrderTraverse(BiTree T, Status(*Visit)(TElemType e))
 // 采用二叉链表存储结构， Visit是对结点操作的应用函数
 // 层序遍历二叉树T,对每个结点调用Visit依次且仅一次
 // 一旦Visit（）失败，则操作失败
-Status  LevelOrderTraverse(BiTree T, Status(*Visit)(TElemType e));
+Status  LevelOrderTraverse(BiTree T, Status(*Visit)(BiTree node))
+{
+    if(T)
+    {
+        LinkQueue queue;
+        InitQueue(queue);
+        EnQueue(queue,T);
+        while(!QueueEmpty(queue))
+        {
+            BiTree x;
+            DeQueue(queue,x);
+            Visit(x);
+            if(x->lchild) EnQueue(queue,x->lchild);
+            if(x->rchild) EnQueue(queue, x->rchild);
+        }
+    }
+    else return OK;
+}
 
 
 // 从 字符数组 创建 用二叉链 表示的二叉表
@@ -276,7 +293,31 @@ Status CreateBiTreeFromArr(BiTree &T, int arr[],int n, int mode )
 Status PrintNodeValue(TElemType value){
     if((char) value == ' ')
         cout<<"_";
-    else
-        cout<<(char)value;
+    else{
+        if(isalpha(value))
+            cout<<(char)value;
+        else if(isnumber(value))
+            cout<<value;
+    }
     return OK;
+}
+
+// 节点值打印
+Status PrintNode(BiTree node)
+{
+   if(node == nullptr)
+       cout<<"^";
+   else{
+       if(isalpha(node->data))
+           cout<<(char)node->data;
+       else if(isnumber(node->data))
+           cout<<node->data;
+   }
+    return OK;
+}
+
+// 节点值打印
+Status PrintByLevelTraverase(BiTree T)
+{
+
 }

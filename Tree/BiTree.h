@@ -49,11 +49,14 @@ typedef short Status;
 // 以上是 辅助性的代码 非重点
 // *************************************************************
 
-
+// 使用栈结构进行 中序、后序遍历
 #include "BiTreeStack.h"
 using namespace  BiTreeStack_Space;
+// 使用链式队列 实现 层序遍历
+#include "BiTreeQueue.h"
+using namespace  BiTreeQueue_Space;
 
-typedef int TElemType;
+typedef int TElemType;   // int 隐含包括了char类型
 
 typedef struct BiTNode
 {
@@ -101,15 +104,20 @@ Status  PostOrderTraverse(BiTree T, Status(*Visit)(TElemType e));
 // 采用二叉链表存储结构， Visit是对结点操作的应用函数
 // 层序遍历二叉树T,对每个结点调用Visit依次且仅一次
 // 一旦Visit（）失败，则操作失败
-Status  LevelOrderTraverse(BiTree T, Status(*Visit)(TElemType e));
+Status  LevelOrderTraverse(BiTree T, Status(*Visit)(BiTree node));
 
 // 按先序顺序出入二叉树中节点的值(一个字符),空格字符表示空树
 // 构造二叉链表表示的二叉树
 Status CreateBitree(BiTree &T);
 
 // 节点值打印
-Status PrintNodeValue(TElemType node);
+Status PrintNodeValue(TElemType value);
 
+// 节点值打印
+Status PrintNode(BiTree node);
+
+// 节点值打印
+Status PrintByLevelTraverase(BiTree T);
 
 #endif //C_BITREE_H
 
@@ -143,6 +151,11 @@ Status PrintNodeValue(TElemType node);
 //    cout<<"先序遍历先序创建的二叉树："<<endl;
 //    cout<<WHITE;
 //    PreOrderTraverse(T,PrintNodeValue);
+//    cout<<endl;
+//    cout<<YELLOW;
+//    cout<<"层序遍历先序创建的二叉树："<<endl;
+//    cout<<WHITE;
+//    LevelOrderTraverse(T,PrintNode);
 //    cout<<endl;
 //
 //    cout<<YELLOW;
