@@ -4,8 +4,8 @@
 
 #ifndef C_CTREE_H
 #define C_CTREE_H
+#define MAX_TREE_SIZE 100
 
-#define MAX_TREE_SIZE 100;
 typedef int TElemType;
 typedef struct CTNode {  // 孩子结点
     int child;

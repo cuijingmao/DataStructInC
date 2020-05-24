@@ -5,6 +5,12 @@
 #ifndef C_BINARYTREE_H
 #define C_BINARYTREE_H
 
+// *************************************************************
+// 以下是 辅助性的代码 非重点
+// *************************************************************
+#ifndef  MY_COMMON_BLOCK
+#define  MY_COMMON_BLOCK
+
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
@@ -38,6 +44,10 @@ using namespace  std;
 #define UNDERFLOW -3
 
 typedef short Status;
+#endif //MY_COMMON_BLOCK
+// *************************************************************
+// 以上是 辅助性的代码 非重点
+// *************************************************************
 
 
 

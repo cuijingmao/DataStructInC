@@ -16,6 +16,8 @@ file(GLOB SOURCES
         String/*.h
         Array/*.cpp
         Array/*.h
+        Tree/*.cpp
+        Tree/*.h
         )
 
 add_executable(C main.cpp  ${SOURCES})
