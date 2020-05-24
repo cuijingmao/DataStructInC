@@ -51,8 +51,15 @@ typedef short Status;
 
 
 #include "BiTreeStack.h"
-using namespace  BiTreeStack;
+using namespace  BiTreeStack_Space;
 
+typedef int TElemType;
+
+typedef struct BiTNode
+{
+    TElemType data;
+    struct BiTNode *lchild, *rchild;   //
+}BiTNode, *BiTree;
 
 
 // 从 字符数组 创建 用二叉链 表示的二叉表

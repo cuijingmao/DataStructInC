@@ -49,20 +49,14 @@ typedef short Status;
 // *************************************************************
 // 以上是 辅助性的代码 非重点
 // *************************************************************
-namespace BiTreeStack{
-    typedef int TElemType;
 
-    typedef struct BiTNode
-    {
-        TElemType data;
-        struct BiTNode *lchild, *rchild;   //
-    }BiTNode, *BiTree,*SElemType;
-
-//    typedef BiTree SElemType;
-
+struct BiTNode;
 #define STACK_INIT_SIZE 100  //存储空间初始分配量
 #define STACKINCREMENT 10   //存储空间分配增量
 
+namespace BiTreeStack_Space{
+
+    typedef BiTNode *SElemType;
     typedef struct {
         SElemType  *base;        // 在栈构造之前和销毁之后， base的值为NULL
         SElemType  *top;         // 栈顶指针

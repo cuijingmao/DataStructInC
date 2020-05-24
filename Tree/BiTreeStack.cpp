@@ -5,7 +5,7 @@
 #include "BiTreeStack.h"
 
 
-namespace BiTreeStack{
+namespace BiTreeStack_Space{
 // 构造一个空栈
     Status InitStack(SqStack &S){
         S.base = (SElemType *) malloc(STACK_INIT_SIZE * sizeof(SElemType));
