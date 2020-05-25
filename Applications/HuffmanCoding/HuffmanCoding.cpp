@@ -142,14 +142,13 @@ Status Select(HuffmanTree HT, unsigned int n,unsigned int &min1_ind, unsigned in
 // 统计一字符数组 各字符出现的频次 作为  赫夫曼编码的 权重数据
 // ch为待统计字符数组，uniqueChars为各个无重复的字符 组成的字符数组
 // counts数组各元素对应 uniqueChars中各元素的 频次
-Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts)
+Status counting(char ch[], char* UniqueChars,  unsigned int* counts)
 {
     if(! ch)  return ERROR;
     int len = strlen(ch);
 
-
     // 统计子串不同字符个数
-    UniqueChars = (char *) malloc(sizeof(char)* len);  // 设得足够大，以备字符各不相同的情况
+//    UniqueChars = (char *) malloc(sizeof(char)* len);  // 设得足够大，以备字符各不相同的情况
     UniqueChars[0] = ch[0];
     int uniqueCounts =1;
     for(int i = 1; i<len ; i++)
@@ -167,9 +166,7 @@ Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts)
     }
 
     // 统计不同字符的频次
-//    free(counts);
-//    counts = nullptr;
-    counts = (unsigned int*) malloc(sizeof(unsigned int)* uniqueCounts);
+//    counts = (unsigned int*) malloc(sizeof(unsigned int)* uniqueCounts);
     for(int i =0; i<uniqueCounts;i++)
     {
         int repeats =0;
@@ -180,5 +177,106 @@ Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts)
         }
         counts[i] = repeats;
     }
+    return OK;
+}
+
+
+// 根据赫夫曼编码将原始字符数组编码成二进制串
+// 返回： 最终要输出的二进制串，
+// ch：原始字符数组
+// UniqueChars: ch中不重复的元素， HC为求出的赫夫曼编码
+Status encode(char* binCode,char ch[],  char* UniqueChars, HuffmanCode HC)
+{
+    int n = strlen(UniqueChars); // 被编码字符数
+    int perCharMaxLen = 0;
+    for(int i= 1; i<= n; i++)
+    {
+        if(perCharMaxLen < strlen(HC[i]))
+        {
+            perCharMaxLen = strlen(HC[i]);
+        }
+    }
+    int cur = 0;  // 标记binCode中0,1装填到的位置
+    for(int i =0; i<strlen(ch); i++)
+    {
+        for(int j =0; j<n; j++)
+        {
+            if( ch[i] == UniqueChars[j])
+            {
+                char * tem = HC[j+1];
+                strcpy(&binCode[cur],tem);
+                cur += strlen(tem);
+            }
+        }
+    }
+    return OK;
+}
+
+// 根据赫夫曼编码将编码后的二进制串还原为 原来的字符数组
+// 返回： 存放解码后的原本字符数组
+// binCode: 经过赫夫曼编码的二进制序列
+// UniqueChars: 赫夫曼编码中不重复的字符集  HC: 对应的赫夫曼编码
+// 此处采用逐一对比字符，子串匹配的方法赫夫曼树本身
+Status  decode(char* ch,char* binCode,char* UniqueChars, HuffmanCode HC )
+{
+    int binLen = strlen(binCode);    // 二进制串的长度
+    int charsN = strlen(UniqueChars);  // 编码基本字符个数
+    int cur = 0 ;     // 指示匹配到binCode的当前位置
+    int matchedNum = 0; // 匹配成功的字符数
+    for(int i=0; i<binLen;i++)
+    {
+        bool curMatched = false;
+        for(int j =0; j <charsN; j++)
+        {
+            bool matched = true;
+            char * tem = HC[j+1];   // 注意是j+1
+            if((binLen -i) >= strlen(tem)){
+                for(int k =0; k <strlen(tem); k++)
+                {
+                    if(binCode[cur+k] != tem[k])
+                    {
+                        matched = false;
+                    }
+                }
+                if(matched)
+                {
+                    ch[matchedNum] = UniqueChars[j];
+                    matchedNum ++;
+                    cur += strlen(tem);   // 指向已经匹配到的位置
+                    curMatched = true;
+                }
+            }
+
+        }
+        if(!curMatched && cur <binLen)
+        {
+            cout<<BOLDRED;
+            cout<<"解码失败！ 失败位置: "<<cur<<endl;
+            cout<<"二进制码解析: "<<endl;
+            cout<<MAGENTA;
+            for(int k =0; k<cur; k++)
+            {
+                cout<<binCode[k];
+            }
+            cout<<WHITE;
+            for(int k=cur; k<binLen;k++)
+            {
+                cout<<binCode[k];
+            }
+            cout<<endl;
+
+            cout<<BOLDRED;
+            cout<<"已经解码出的字符： [";
+            for(int k =0; k<matchedNum-1; k++)
+            {
+                cout<<ch[k]<<", ";
+            }
+            cout<<ch[matchedNum-1]<<"]"<<endl;
+            cout<<"程序退出！"<<endl;
+            cout<<WHITE;
+            return ERROR;
+        }
+    }
+
     return OK;
 }

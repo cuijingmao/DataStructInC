@@ -69,22 +69,40 @@ Status Select(HuffmanTree HT, unsigned int n,unsigned int &min1_ind, unsigned in
 // 统计一字符数组 各字符出现的频次 作为  赫夫曼编码的 权重数据
 // ch为待统计字符数组，uniqueChars为各个无重复的字符 组成的字符数组
 // counts数组各元素对应 uniqueChars中各元素的 频次
-Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts);
+Status counting(char ch[], char* UniqueChars,  unsigned int* counts);
+
+// 根据赫夫曼编码将原始字符数组编码成二进制串
+// binCode： 最终要输出的二进制串，
+// ch：原始字符数组
+// UniqueChars: ch中不重复的元素， HC为求出的赫夫曼编码
+Status encode(char* binCode,char ch[],  char* UniqueChars, HuffmanCode HC);
+
+// 根据赫夫曼编码将编码后的二进制串还原为 原来的字符数组
+// ch： 存放解码后的原本字符数组
+// binCode: 经过赫夫曼编码的二进制序列
+// UniqueChars: 赫夫曼编码中不重复的字符集  HC: 对应的赫夫曼编码
+// 此处采用逐一对比字符，子串匹配的方法赫夫曼树本身
+Status  decode(char* ch,char* binCode,char* UniqueChars, HuffmanCode HC );
+
 
 #endif //C_HUFFMANCODING_H
-
 
 //    cout<<YELLOW;
 //    cout<<"对字符串序列进行赫夫曼(Huffman)编码"<<endl;
 //    cout<<WHITE;
 //
-//    char ch[] ="ABACCDADDDFFAAARRRBBCC";
-//    unsigned int *counts;
-//    char *UniqueChars;
+//    HuffmanTree HT;    // 赫夫曼树
+//    HuffmanCode HC;    // 赫夫曼编码
+//    char ch[] ="ABACCDAFDSEAABABCCDDBBCCCDEFABCDCCD";  //原始字符数组
+//    char UniqueChars[20];       // 不同的字符的集合
+//    unsigned int counts[20];    // 各个不同的字符的频次
+//    char binCode[500] ;         // 原始字符数组经赫夫曼编码后的二进制字符串
+//    char  chs[100];             // 二进制字符数组反解后的原字符串
 //
-//    counting(ch,UniqueChars,counts);
+//    counting(ch,UniqueChars,counts);  //对原字符串进行必要统计
+//
 //    cout<<YELLOW;
-//    cout<<"待编码字符序列："<<endl;
+//    cout<<"待编码字符序列中不同字符集合："<<endl;
 //    cout<<WHITE;
 //    cout<<"[";
 //    for(int i =0; i<strlen(ch)-1; i++)
@@ -113,9 +131,9 @@ Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts);
 //    }
 //    cout<<counts[strlen(UniqueChars)-1]<<"]"<<endl;
 //
-//    HuffmanTree HT;    // 赫夫曼树
-//    HuffmanCode HC;    // 赫夫曼编码
-//    HuffmanCoding(HT,HC,counts,strlen(UniqueChars));
+//
+//    HuffmanCoding(HT,HC,counts,strlen(UniqueChars));  // 进行赫夫曼编码的计算与分配
+//
 //    cout<<YELLOW;
 //    cout<<"分配给各字符的赫夫曼编码："<<endl;
 //    cout<<WHITE;
@@ -129,3 +147,35 @@ Status counting(char ch[], char* &UniqueChars,  unsigned int* &counts);
 //        }
 //        cout<<endl;
 //    }
+//
+//    cout<<YELLOW;
+//    cout<<"对原字符数组进行赫夫曼(Huffman)编码："<<endl;
+//    cout<<WHITE;
+//    cout<<"原始字符数组: [";
+//    for(int i =0; i<strlen(ch)-1; i++)
+//    {
+//        cout<<ch[i]<<", ";
+//    }
+//    cout<<ch[strlen(ch)-1]<<"]"<<endl;
+//
+//    encode(binCode,ch,UniqueChars,HC); // 使用赫夫曼编码对原始字符数组进行编码
+//
+//    cout<<"编码后二进制数组: ";
+//    for(int i =0; i<strlen(binCode); i++)
+//    {
+//        cout<<binCode[i];
+//    }
+//    cout<<endl;
+//
+//    cout<<YELLOW;
+//    cout<<"对编码后数组进行赫夫曼(Huffman)解码："<<endl;
+//    cout<<WHITE;
+//
+//    decode(chs,binCode,UniqueChars,HC); // 对经赫夫曼编码的二进制串反解原字符串
+//
+//    cout<<"[";
+//    for(int i =0; i<strlen(chs)-1; i++)
+//    {
+//        cout<<chs[i]<<", ";
+//    }
+//    cout<<chs[strlen(chs)-1]<<"]"<<endl;
